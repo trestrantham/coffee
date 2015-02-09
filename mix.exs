@@ -25,11 +25,9 @@ defmodule Coffee.Mixfile do
   defp applications(:prod) do
     [:phoenix, :cowboy, :logger]
   end
-
   defp applications(:test) do
     applications(:all) ++ [:blacksmith]
   end
-
   defp applications(_) do
     applications(:prod)
   end
@@ -43,13 +41,12 @@ defmodule Coffee.Mixfile do
       {:cowboy, "~> 1.0"}
     ]
   end
-
   defp deps(:test) do
     deps(:prod) ++ [
-      {:blacksmith, git: "git://github.com/batate/blacksmith.git"}
+      {:blacksmith, git: "git://github.com/batate/blacksmith.git"},
+      {:shouldi, env: :test}
     ]
   end
-
   defp deps(_) do
     deps(:prod)
   end
