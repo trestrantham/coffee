@@ -8,7 +8,8 @@ defmodule Coffee.Mixfile do
       elixir: "~> 1.0",
       elixirc_paths: ["lib", "web"],
       compilers: [:phoenix] ++ Mix.compilers,
-      deps: deps(Mix.env)
+      deps: deps(Mix.env),
+      test_coverage: [tool: ExCoveralls]
     ]
   end
 
@@ -28,6 +29,9 @@ defmodule Coffee.Mixfile do
   defp applications(:test) do
     applications(:all) ++ [:blacksmith]
   end
+  defp applications(:dev) do
+    applications(:test)
+  end
   defp applications(_) do
     applications(:prod)
   end
@@ -45,6 +49,11 @@ defmodule Coffee.Mixfile do
     deps(:prod) ++ [
       {:blacksmith, git: "git://github.com/batate/blacksmith.git"},
       {:shouldi, env: :test}
+    ]
+  end
+  defp deps(:dev) do
+    deps(:test) ++ [
+      {:excoveralls, "~> 0.3"}
     ]
   end
   defp deps(_) do
