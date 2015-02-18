@@ -1,6 +1,11 @@
-defmodule IntegrationTest do
-  use ExUnit.Case
-  use TucoTuco.DSL
+defmodule IntegrationCase do
+  use ExUnit.CaseTemplate
+
+  using(_) do
+    quote do
+      use TucoTuco.DSL
+    end
+  end
 
   setup_all do
     {:ok, _} = TucoTuco.start_session :test_browser, :test_session, :phantomjs
@@ -13,12 +18,5 @@ defmodule IntegrationTest do
     on_exit fn ->
       TucoTuco.stop
     end
-  end
-
-  test "the truth" do
-    visit TucoTuco.app_root
-
-    assert current_url == "http://localhost:4001/"
-    assert Page.has_text? "Phoenix"
   end
 end
